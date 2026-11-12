@@ -202,3 +202,4 @@ export default function HeroSlide({ onGoToSlide }) {
     </div>
   );
 }
+

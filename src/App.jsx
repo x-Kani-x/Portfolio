@@ -14,10 +14,30 @@ import { slidesMeta } from './data/portfolioData';
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [slideDirection, setSlideDirection] = useState('next'); // 'next' or 'prev'
+  const [isDark, setIsDark] = useState(() => {
+    return localStorage.getItem('portfolio-theme') === 'dark';
+  });
+
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
-
   const totalSlides = slidesMeta.length;
+
+  // Toggle Theme
+  const handleToggleDark = () => {
+    setIsDark(prev => {
+      const next = !prev;
+      localStorage.setItem('portfolio-theme', next ? 'dark' : 'light');
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDark]);
 
   const handleNext = () => {
     if (currentSlide < totalSlides - 1) {
@@ -42,7 +62,6 @@ export default function App() {
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e) => {
-      // Don't trigger slide change if user is typing in an input or textarea
       if (['INPUT', 'TEXTAREA'].includes(e.target.tagName)) return;
 
       if (e.key === 'ArrowRight' || e.key === 'PageDown') {
@@ -71,18 +90,15 @@ export default function App() {
 
   const handleTouchEnd = () => {
     const diff = touchStartX.current - touchEndX.current;
-    const minSwipeDistance = 60; // minimum pixels to trigger swipe
+    const minSwipeDistance = 60;
 
     if (diff > minSwipeDistance) {
-      // Swiped Left -> go to Next Slide
       handleNext();
     } else if (diff < -minSwipeDistance) {
-      // Swiped Right -> go to Prev Slide
       handlePrev();
     }
   };
 
-  // Render appropriate slide component
   const renderCurrentSlide = () => {
     switch (currentSlide) {
       case 0:
@@ -108,28 +124,49 @@ export default function App() {
 
   return (
     <div 
-      className="min-h-screen bg-slate-50 text-slate-900 flex flex-col relative overflow-x-hidden select-none"
+      className={`min-h-screen ${
+        isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#FAF8FF] text-slate-900'
+      } flex flex-col relative overflow-x-hidden select-none transition-colors duration-500`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
-      {/* Decorative Background Elements */}
+      {/* Dynamic Rich Atmospheric Background Orbs & Grids */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
-        <div className="absolute -top-32 -left-32 w-96 h-96 bg-brand-100/60 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 -right-32 w-96 h-96 bg-indigo-100/50 rounded-full blur-3xl" />
-        <div className="absolute -bottom-32 left-1/3 w-96 h-96 bg-violet-100/40 rounded-full blur-3xl" />
-        {/* Subtle grid pattern */}
+        
+        {/* Layer 1: Ambient Floating Gradient Orbs */}
+        <div className="absolute -top-24 -left-24 w-[540px] h-[540px] bg-gradient-to-br from-brand-500/20 via-indigo-500/15 to-transparent rounded-full blur-[100px] animate-floatSlow" />
+        
+        <div className="absolute top-1/4 -right-24 w-[480px] h-[480px] bg-gradient-to-bl from-indigo-500/20 via-purple-500/15 to-transparent rounded-full blur-[110px] animate-floatReverse" />
+        
+        <div className="absolute -bottom-32 left-1/4 w-[620px] h-[620px] bg-gradient-to-tr from-fuchsia-500/15 via-brand-400/15 to-transparent rounded-full blur-[120px] animate-floatSlow" />
+
+        {/* Dynamic Center Ambient Bloom that changes with current slide */}
         <div 
-          className="absolute inset-0 opacity-[0.025]"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-r from-violet-600/10 via-brand-500/10 to-indigo-600/10 rounded-full blur-[130px] transition-all duration-700"
           style={{
-            backgroundImage: `radial-gradient(#7c3aed 1px, transparent 1px)`,
-            backgroundSize: '24px 24px'
+            transform: `translate(-50%, -50%) rotate(${currentSlide * 45}deg)`
           }}
         />
+
+        {/* Layer 2: Tech Blueprint Grid with Vignette */}
+        <div className="absolute inset-0 tech-grid-bg opacity-70" />
+
+        {/* Layer 3: Floating Ambient Particles (Subtle high-tech depth) */}
+        <div className="absolute top-20 left-1/5 w-1.5 h-1.5 rounded-full bg-brand-500/40 animate-pulse" />
+        <div className="absolute top-1/3 right-1/4 w-2 h-2 rounded-full bg-indigo-500/30 animate-pulseSubtle" />
+        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 rounded-full bg-fuchsia-500/30 animate-pulse" />
+        <div className="absolute bottom-32 right-1/5 w-2 h-2 rounded-full bg-brand-400/40 animate-pulseSubtle" />
+
       </div>
 
       {/* Pinned Top Navigation */}
-      <Navbar currentSlide={currentSlide} onSelectSlide={handleSelectSlide} />
+      <Navbar 
+        currentSlide={currentSlide} 
+        onSelectSlide={handleSelectSlide} 
+        isDark={isDark}
+        onToggleDark={handleToggleDark}
+      />
 
       {/* Main Presentation Viewport */}
       <main className="flex-1 pt-16 sm:pt-20 pb-20 sm:pb-24 flex items-center justify-center relative w-full">
@@ -143,7 +180,7 @@ export default function App() {
         </div>
       </main>
 
-      {/* Slideshow Presentation Controller (Side Arrows, Bottom Navigation Bar) */}
+      {/* Slideshow Presentation Controller */}
       <SlideController
         currentSlide={currentSlide}
         totalSlides={totalSlides}

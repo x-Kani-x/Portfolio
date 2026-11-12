@@ -367,3 +367,4 @@ export const slidesMeta = [
   { id: "achievements", title: "Achievements", subtitle: "Competitive Coding" },
   { id: "contact", title: "Contact", subtitle: "Connect & Inquire" }
 ];
+
