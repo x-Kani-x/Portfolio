@@ -13,9 +13,11 @@ export const personalInfo = {
   statusBadge: "Available for Software Engineering & AI Internships",
   bio: "2nd-year Computer Science & Engineering undergraduate at Chennai Institute of Technology with a strong foundation in full-stack web development, data analysis, and algorithmic problem solving. Passionate about transforming complex problems into elegant, reliable applications.",
   avatar: "/profile.jpg",
-  email: "kanishkan.cse2025@citchennai.net",
+  email: "kanishka15644@gmail.com",
+  collegeEmail: "kanishkan.cse2025@citchennai.net",
   phone: "+91 9444623779",
   location: "Chennai, Tamil Nadu, India",
+  resumeUrl: "/Kanishka_N_Resume.pdf",
   socials: {
     github: "https://github.com/x-Kani-x",
     linkedin: "https://www.linkedin.com/in/kanishka-nandha-22429a376/",
@@ -133,7 +135,7 @@ export const projectsList = [
   {
     title: "Hexashield – Cybersecurity Assistant",
     category: "Cybersecurity",
-    badgeColor: "bg-red-50 text-red-600 border-red-200",
+    badgeColor: "bg-brand-100 text-brand-900 border-brand-300 dark:bg-brand-950 dark:text-brand-300 dark:border-brand-800",
     description: "An intelligent cybersecurity assistant designed to educate and protect users against potential digital threats, vulnerabilities, and unauthorized intrusions.",
     highlights: [
       "Provides real-time security guidance and risk assessment for everyday digital users.",
@@ -146,7 +148,7 @@ export const projectsList = [
   {
     title: "CyberShield AI – Scam Detection",
     category: "Artificial Intelligence",
-    badgeColor: "bg-brand-50 text-brand-600 border-brand-200",
+    badgeColor: "bg-brand-50 text-brand-700 border-brand-200 dark:bg-brand-900/60 dark:text-brand-200 dark:border-brand-700",
     description: "An AI-powered conceptual framework that actively analyzes message contents, URLs, and communication patterns to flag potential phishing scams and malicious activities.",
     highlights: [
       "Identifies deceptive patterns in online messages and fraudulent phishing hooks.",
@@ -159,7 +161,7 @@ export const projectsList = [
   {
     title: "Stock Market Trend Prediction",
     category: "Machine Learning",
-    badgeColor: "bg-emerald-50 text-emerald-600 border-emerald-200",
+    badgeColor: "bg-brand-100/70 text-brand-800 border-brand-300/80 dark:bg-brand-950/80 dark:text-brand-300 dark:border-brand-800",
     description: "A machine learning pipeline that predicts short-term stock market price movements and momentum based on historical NIFTY 50 financial datasets.",
     highlights: [
       "Executed comprehensive data preprocessing, moving averages, and feature engineering on NIFTY 50 data.",
@@ -172,7 +174,7 @@ export const projectsList = [
   {
     title: "Multilingual OCR Verification",
     category: "Deep Learning / ML",
-    badgeColor: "bg-blue-50 text-blue-600 border-blue-200",
+    badgeColor: "bg-brand-200/60 text-brand-900 border-brand-300 dark:bg-brand-900/70 dark:text-brand-200 dark:border-brand-700",
     description: "A deep learning OCR pipeline that extracts, normalizes, and verifies printed and scanned textual information across multiple languages.",
     highlights: [
       "Accurately extracts multilingual typography from various document formats and noisy scans.",
@@ -185,7 +187,7 @@ export const projectsList = [
   {
     title: "SmartSpend – AI Expense Tracker",
     category: "Personal Finance AI",
-    badgeColor: "bg-amber-50 text-amber-600 border-amber-200",
+    badgeColor: "bg-brand-50 text-brand-800 border-brand-200 dark:bg-brand-950 dark:text-brand-300 dark:border-brand-800",
     description: "An intelligent personal finance manager featuring automated expense categorization, real-time overspending alerts, and visual budget optimization.",
     highlights: [
       "Automatically groups expenditures into essential vs discretionary buckets.",
@@ -236,7 +238,7 @@ export const certificationsList = [
     badge: "Oracle Certified Associate",
     category: "Artificial Intelligence & Database",
     icon: "Database",
-    color: "from-rose-500 to-red-600"
+    color: "from-brand-800 via-brand-700 to-brand-600"
   },
   {
     title: "Oracle Cloud Infrastructure Certified AI Foundations Associate",
@@ -245,7 +247,7 @@ export const certificationsList = [
     badge: "Oracle Certified Associate",
     category: "Cloud AI & Infrastructure",
     icon: "Cloud",
-    color: "from-red-500 to-orange-500"
+    color: "from-brand-700 via-brand-600 to-brand-500"
   },
   {
     title: "Build Real World AI Applications with Gemini and Imagen",
@@ -254,7 +256,7 @@ export const certificationsList = [
     badge: "Google Cloud Skill Badge",
     category: "Generative AI",
     icon: "Bot",
-    color: "from-blue-500 to-cyan-500"
+    color: "from-brand-600 via-brand-500 to-brand-400"
   },
   {
     title: "Create Your First Gemini Enterprise Application",
@@ -263,7 +265,7 @@ export const certificationsList = [
     badge: "Google Cloud Skill Badge",
     category: "Enterprise AI",
     icon: "Sparkles",
-    color: "from-indigo-500 to-blue-600"
+    color: "from-brand-800 to-brand-600"
   },
   {
     title: "Introduction to Snowflake, SQL & Data Modeling",
@@ -272,7 +274,7 @@ export const certificationsList = [
     badge: "DataCamp Verified",
     category: "Cloud Data Warehousing",
     icon: "Server",
-    color: "from-teal-500 to-emerald-600"
+    color: "from-brand-700 via-brand-600 to-brand-500"
   },
   {
     title: "Python Essentials Part 1",
@@ -281,7 +283,7 @@ export const certificationsList = [
     badge: "Cisco Academy",
     category: "Python Programming",
     icon: "Terminal",
-    color: "from-cyan-500 to-blue-500"
+    color: "from-brand-600 to-brand-500"
   },
   {
     title: "Data Science Certification",
@@ -290,7 +292,7 @@ export const certificationsList = [
     badge: "WorldQuant",
     category: "Data Science & Quantitative Analysis",
     icon: "LineChart",
-    color: "from-purple-500 to-brand-600"
+    color: "from-brand-900 via-brand-800 to-brand-700"
   }
 ];
 
@@ -301,7 +303,7 @@ export const achievements = {
       name: "LeetCode",
       count: "266",
       label: "Problems Solved",
-      color: "from-amber-500 to-yellow-600",
+      color: "from-brand-700 via-brand-600 to-brand-500",
       description: "Consistent practice covering Arrays, Strings, Two Pointers, Trees, Hash Maps, and Dynamic Programming.",
       url: "https://leetcode.com/"
     },
@@ -309,7 +311,7 @@ export const achievements = {
       name: "Skillrack",
       count: "110",
       label: "Problems Solved",
-      color: "from-brand-500 to-brand-700",
+      color: "from-brand-600 via-brand-500 to-brand-400",
       description: "Fast logic building and algorithmic implementations in C, C++, and Python.",
       url: "#"
     },
@@ -317,7 +319,7 @@ export const achievements = {
       name: "Codeforces",
       count: "36",
       label: "Problems Solved",
-      color: "from-blue-500 to-indigo-600",
+      color: "from-brand-800 via-brand-700 to-brand-600",
       description: "Competitive contest challenges emphasizing time-efficient implementations and mathematical logic.",
       url: "https://codeforces.com/"
     }

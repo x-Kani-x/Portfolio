@@ -125,7 +125,7 @@ export default function App() {
   return (
     <div 
       className={`min-h-screen ${
-        isDark ? 'bg-slate-950 text-slate-100' : 'bg-[#FAF8FF] text-slate-900'
+        isDark ? 'bg-[#0c071b] text-slate-100' : 'bg-gradient-to-br from-[#f2ebff] via-[#f7f2ff] to-[#eae0fe] text-slate-900'
       } flex flex-col relative overflow-x-hidden select-none transition-colors duration-500`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
@@ -134,29 +134,30 @@ export default function App() {
       {/* Dynamic Rich Atmospheric Background Orbs & Grids */}
       <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
         
-        {/* Layer 1: Ambient Floating Gradient Orbs */}
-        <div className="absolute -top-24 -left-24 w-[540px] h-[540px] bg-gradient-to-br from-brand-500/20 via-indigo-500/15 to-transparent rounded-full blur-[100px] animate-floatSlow" />
+        {/* Layer 1: Ambient Floating Gradient Orbs in primary brand shades */}
+        <div className="absolute -top-28 -left-28 w-[580px] h-[580px] bg-gradient-to-br from-brand-400/35 via-brand-300/30 to-brand-500/15 dark:from-brand-600/25 dark:via-brand-500/20 dark:to-transparent rounded-full blur-[110px] animate-floatSlow" />
         
-        <div className="absolute top-1/4 -right-24 w-[480px] h-[480px] bg-gradient-to-bl from-indigo-500/20 via-purple-500/15 to-transparent rounded-full blur-[110px] animate-floatReverse" />
+        <div className="absolute top-1/4 -right-28 w-[520px] h-[520px] bg-gradient-to-bl from-brand-500/30 via-brand-300/30 to-brand-600/15 dark:from-brand-700/25 dark:via-brand-400/20 dark:to-transparent rounded-full blur-[120px] animate-floatReverse" />
         
-        <div className="absolute -bottom-32 left-1/4 w-[620px] h-[620px] bg-gradient-to-tr from-fuchsia-500/15 via-brand-400/15 to-transparent rounded-full blur-[120px] animate-floatSlow" />
+        <div className="absolute -bottom-36 left-1/4 w-[640px] h-[640px] bg-gradient-to-tr from-brand-600/30 via-brand-400/25 to-brand-300/15 dark:from-brand-800/25 dark:via-brand-500/20 dark:to-transparent rounded-full blur-[130px] animate-floatSlow" />
 
-        {/* Dynamic Center Ambient Bloom that changes with current slide */}
+        {/* Dynamic Center Ambient Bloom that rotates with current slide */}
         <div 
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] bg-gradient-to-r from-violet-600/10 via-brand-500/10 to-indigo-600/10 rounded-full blur-[130px] transition-all duration-700"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] h-[480px] bg-gradient-to-r from-brand-400/25 via-brand-500/25 to-brand-300/25 dark:from-brand-700/15 dark:via-brand-500/15 dark:to-brand-600/15 rounded-full blur-[140px] transition-all duration-700 pointer-events-none"
           style={{
             transform: `translate(-50%, -50%) rotate(${currentSlide * 45}deg)`
           }}
         />
 
         {/* Layer 2: Tech Blueprint Grid with Vignette */}
-        <div className="absolute inset-0 tech-grid-bg opacity-70" />
+        <div className="absolute inset-0 tech-grid-bg opacity-80" />
 
-        {/* Layer 3: Floating Ambient Particles (Subtle high-tech depth) */}
-        <div className="absolute top-20 left-1/5 w-1.5 h-1.5 rounded-full bg-brand-500/40 animate-pulse" />
-        <div className="absolute top-1/3 right-1/4 w-2 h-2 rounded-full bg-indigo-500/30 animate-pulseSubtle" />
-        <div className="absolute bottom-1/4 left-1/3 w-1.5 h-1.5 rounded-full bg-fuchsia-500/30 animate-pulse" />
-        <div className="absolute bottom-32 right-1/5 w-2 h-2 rounded-full bg-brand-400/40 animate-pulseSubtle" />
+        {/* Layer 3: Floating Ambient Particles in primary brand shades */}
+        <div className="absolute top-20 left-[18%] w-2 h-2 rounded-full bg-brand-500/60 shadow-sm shadow-brand-400 animate-pulse" />
+        <div className="absolute top-1/3 right-[22%] w-2.5 h-2.5 rounded-full bg-brand-600/50 shadow-sm shadow-brand-500 animate-pulseSubtle" />
+        <div className="absolute bottom-1/4 left-[30%] w-2 h-2 rounded-full bg-brand-400/60 shadow-sm shadow-brand-300 animate-pulse" />
+        <div className="absolute bottom-32 right-[18%] w-3 h-3 rounded-full bg-brand-500/50 shadow-sm shadow-brand-500 animate-floatGentle" />
+        <div className="absolute top-2/3 left-[12%] w-2 h-2 rounded-full bg-brand-500/40 animate-pulseSubtle" />
 
       </div>
 
