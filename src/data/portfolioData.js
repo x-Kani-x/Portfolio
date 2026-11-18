@@ -8,7 +8,7 @@ export const personalInfo = {
     "Aspiring Software Engineer",
     "AI & Machine Learning Enthusiast",
     "Data Science & Analytics Practitioner",
-    "Competitive Problem Solver (412+ DSA)"
+    "Competitive Problem Solver (450+ DSA)"
   ],
   statusBadge: "Available for Software Engineering & AI Internships",
   bio: "2nd-year Computer Science & Engineering undergraduate at Chennai Institute of Technology with a strong foundation in full-stack web development, data analysis, and algorithmic problem solving. Passionate about transforming complex problems into elegant, reliable applications.",
@@ -21,12 +21,13 @@ export const personalInfo = {
   socials: {
     github: "https://github.com/x-Kani-x",
     linkedin: "https://www.linkedin.com/in/kanishka-nandha-22429a376/",
-    leetcode: "https://leetcode.com/",
+    leetcode: "https://leetcode.com/u/X_Kani_X/",
+    leetcodeUsername: "X_Kani_X",
     codeforces: "https://codeforces.com/",
   },
   metrics: [
     { label: "CGPA (First Year)", value: "8.52", sub: "Chennai Institute of Technology" },
-    { label: "DSA Problems Solved", value: "412+", sub: "LeetCode, Skillrack, Codeforces" },
+    { label: "DSA Problems Solved", value: "450+", sub: "LeetCode, Skillrack, Codeforces" },
     { label: "Featured Projects", value: "5+", sub: "AI, ML, Security & Web" },
     { label: "Certifications & Badges", value: "8+", sub: "Oracle, Google Cloud, DataCamp" },
   ]
@@ -297,15 +298,15 @@ export const certificationsList = [
 ];
 
 export const achievements = {
-  totalSolved: 412,
+  totalSolved: 450,
   platforms: [
     {
       name: "LeetCode",
-      count: "266",
+      count: "304",
       label: "Problems Solved",
       color: "from-brand-700 via-brand-600 to-brand-500",
       description: "Consistent practice covering Arrays, Strings, Two Pointers, Trees, Hash Maps, and Dynamic Programming.",
-      url: "https://leetcode.com/"
+      url: "https://leetcode.com/u/X_Kani_X/"
     },
     {
       name: "Skillrack",
@@ -325,7 +326,7 @@ export const achievements = {
     }
   ],
   stats: [
-    { label: "Algorithms Solved", value: "412+" },
+    { label: "Algorithms Solved", value: "450+" },
     { label: "Languages Used", value: "Python, C++, C" },
     { label: "College Standing", value: "Top Tier (8.52 CGPA)" },
     { label: "Certifications Earned", value: "8+ Industry Badges" }
@@ -369,4 +370,18 @@ export const slidesMeta = [
   { id: "achievements", title: "Achievements", subtitle: "Competitive Coding" },
   { id: "contact", title: "Contact", subtitle: "Connect & Inquire" }
 ];
+
+export function getLeetCodeUsername(socials = personalInfo.socials) {
+  if (socials.leetcodeUsername && socials.leetcodeUsername.trim()) {
+    return socials.leetcodeUsername.trim();
+  }
+  if (socials.leetcode) {
+    const match = socials.leetcode.match(/leetcode\.com\/(?:u\/)?([a-zA-Z0-9_-]+)/);
+    if (match && match[1] && match[1] !== 'u' && match[1] !== 'profile') {
+      return match[1];
+    }
+  }
+  return '';
+}
+
 

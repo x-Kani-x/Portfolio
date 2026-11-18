@@ -1,8 +1,11 @@
 import React from 'react';
 import { achievements } from '../../data/portfolioData';
-import { Trophy, Code2, Flame, Award, CheckCircle2, Target } from 'lucide-react';
+import { Trophy, Code2, Flame, Award, CheckCircle2, Target, ExternalLink } from 'lucide-react';
 
-export default function AchievementsSlide() {
+export default function AchievementsSlide({ leetCodeStats }) {
+  const leetCodeSolved = leetCodeStats?.leetcodeSolved ?? 304;
+  const totalSolved = leetCodeStats?.totalSolved ?? 450;
+
   return (
     <div className="w-full h-full flex flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       
@@ -39,7 +42,7 @@ export default function AchievementsSlide() {
             <div className="space-y-1">
               <div className="text-5xl sm:text-6xl font-black tracking-tight text-white flex items-baseline space-x-1">
                 <span className="bg-gradient-to-r from-white via-brand-100 to-brand-300 bg-clip-text text-transparent">
-                  412+
+                  {totalSolved}+
                 </span>
               </div>
               <div className="text-lg font-bold text-brand-200">
@@ -65,15 +68,18 @@ export default function AchievementsSlide() {
 
           {/* Quick Metrics Bar in brand depth */}
           <div className="grid grid-cols-2 gap-3">
-            {achievements.stats.map((s, idx) => (
-              <div 
-                key={idx} 
-                className="glass-card glass-card-hover p-3.5 rounded-2xl border border-brand-300/80 dark:border-brand-800/80 text-left shadow-sm"
-              >
-                <div className="text-[11px] text-brand-800/70 dark:text-slate-400 font-bold">{s.label}</div>
-                <div className="text-sm font-black text-brand-950 dark:text-white mt-0.5">{s.value}</div>
-              </div>
-            ))}
+            {achievements.stats.map((s, idx) => {
+              const displayVal = idx === 0 ? `${totalSolved}+` : s.value;
+              return (
+                <div 
+                  key={idx} 
+                  className="glass-card glass-card-hover p-3.5 rounded-2xl border border-brand-300/80 dark:border-brand-800/80 text-left shadow-sm"
+                >
+                  <div className="text-[11px] text-brand-800/70 dark:text-slate-400 font-bold">{s.label}</div>
+                  <div className="text-sm font-black text-brand-950 dark:text-white mt-0.5">{displayVal}</div>
+                </div>
+              );
+            })}
           </div>
 
         </div>
@@ -90,11 +96,24 @@ export default function AchievementsSlide() {
 
               <div className="space-y-1.5 flex-1 pt-1">
                 <div className="flex items-center space-x-2">
-                  <span className="font-black text-slate-900 dark:text-white text-lg group-hover:text-brand-600 dark:group-hover:text-brand-300 transition-colors">
-                    {platform.name}
-                  </span>
+                  {platform.url && platform.url !== '#' ? (
+                    <a
+                      href={platform.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-black text-slate-900 dark:text-white text-lg hover:text-brand-600 dark:hover:text-brand-300 transition-colors inline-flex items-center space-x-1.5"
+                      title={`Visit ${platform.name} profile`}
+                    >
+                      <span>{platform.name}</span>
+                      <ExternalLink className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400 opacity-70 group-hover:opacity-100" />
+                    </a>
+                  ) : (
+                    <span className="font-black text-slate-900 dark:text-white text-lg group-hover:text-brand-600 dark:group-hover:text-brand-300 transition-colors">
+                      {platform.name}
+                    </span>
+                  )}
                   <span className="px-2 py-0.5 rounded-md text-[10px] font-extrabold uppercase tracking-wide bg-brand-100 dark:bg-brand-950 text-brand-900 dark:text-brand-300 border border-brand-300/80 dark:border-brand-800">
-                    Platform
+                    {platform.name === 'LeetCode' && !leetCodeStats?.loading ? 'Live Synced' : 'Platform'}
                   </span>
                 </div>
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -116,12 +135,24 @@ export default function AchievementsSlide() {
               {/* Number Count Box with Specular Depth */}
               <div className="sm:text-right shrink-0">
                 <div className="inline-flex sm:flex-col items-center sm:items-end justify-between sm:justify-center p-3.5 rounded-2xl bg-brand-200/60 dark:bg-brand-950/90 border border-brand-300 dark:border-brand-800/90 min-w-[130px] shadow-sm">
-                  <div className="text-2xl sm:text-3xl font-black text-brand-900 dark:text-brand-300">
-                    {platform.count}
+                  <div className="text-2xl sm:text-3xl font-black text-brand-900 dark:text-brand-300 flex items-center sm:justify-end space-x-1.5">
+                    <span>{platform.name === 'LeetCode' ? leetCodeSolved : platform.count}</span>
+                    {platform.name === 'LeetCode' && !leetCodeStats?.loading && (
+                      <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse shrink-0" title="Live synced from LeetCode" />
+                    )}
                   </div>
                   <div className="text-[11px] font-extrabold text-brand-800 dark:text-brand-400 mt-0.5">
                     {platform.label}
                   </div>
+                  {platform.name === 'LeetCode' && leetCodeStats?.easySolved > 0 && (
+                    <div className="text-[10px] font-semibold text-slate-600 dark:text-slate-400 mt-1 flex items-center space-x-1.5">
+                      <span className="text-emerald-600 dark:text-emerald-400 font-bold">{leetCodeStats.easySolved}E</span>
+                      <span>•</span>
+                      <span className="text-amber-600 dark:text-amber-400 font-bold">{leetCodeStats.mediumSolved}M</span>
+                      <span>•</span>
+                      <span className="text-rose-600 dark:text-rose-400 font-bold">{leetCodeStats.hardSolved}H</span>
+                    </div>
+                  )}
                 </div>
               </div>
 

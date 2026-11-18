@@ -10,6 +10,7 @@ import CertificationsSlide from './components/slides/CertificationsSlide';
 import AchievementsSlide from './components/slides/AchievementsSlide';
 import ContactSlide from './components/slides/ContactSlide';
 import { slidesMeta } from './data/portfolioData';
+import { useLeetCodeStats } from './hooks/useLeetCodeStats';
 
 export default function App() {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -17,6 +18,8 @@ export default function App() {
   const [isDark, setIsDark] = useState(() => {
     return localStorage.getItem('portfolio-theme') === 'dark';
   });
+
+  const leetCodeStats = useLeetCodeStats();
 
   const touchStartX = useRef(0);
   const touchEndX = useRef(0);
@@ -102,9 +105,9 @@ export default function App() {
   const renderCurrentSlide = () => {
     switch (currentSlide) {
       case 0:
-        return <HeroSlide onGoToSlide={handleSelectSlide} />;
+        return <HeroSlide onGoToSlide={handleSelectSlide} leetCodeStats={leetCodeStats} />;
       case 1:
-        return <AboutSlide />;
+        return <AboutSlide leetCodeStats={leetCodeStats} />;
       case 2:
         return <SkillsSlide />;
       case 3:
@@ -114,11 +117,11 @@ export default function App() {
       case 5:
         return <CertificationsSlide />;
       case 6:
-        return <AchievementsSlide />;
+        return <AchievementsSlide leetCodeStats={leetCodeStats} />;
       case 7:
         return <ContactSlide />;
       default:
-        return <HeroSlide onGoToSlide={handleSelectSlide} />;
+        return <HeroSlide onGoToSlide={handleSelectSlide} leetCodeStats={leetCodeStats} />;
     }
   };
 

@@ -2,7 +2,8 @@ import React from 'react';
 import { educationList } from '../../data/portfolioData';
 import { BookOpen, Award, Calendar, CheckCircle2, UserCheck, Sparkles, MapPin } from 'lucide-react';
 
-export default function AboutSlide() {
+export default function AboutSlide({ leetCodeStats }) {
+  const totalDsa = leetCodeStats?.totalSolved ? `${leetCodeStats.totalSolved}+` : '450+';
   return (
     <div className="w-full h-full flex flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
       
@@ -44,7 +45,7 @@ export default function AboutSlide() {
               I am currently in my 2nd year of Bachelor of Engineering in Computer Science and Engineering at <strong className="text-slate-900 dark:text-white font-bold">Chennai Institute of Technology</strong>.
             </p>
             <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-              My curiosity centers on building practical, intelligent software: from <strong className="text-brand-700 dark:text-brand-300 font-semibold">AI scam detection</strong> to <strong className="text-brand-700 dark:text-brand-300 font-semibold">market momentum models</strong> and <strong className="text-brand-700 dark:text-brand-300 font-semibold">cybersecurity assistants</strong>. I balance practical builds with strong fundamentals, having solved <strong className="text-brand-600 dark:text-brand-400 font-extrabold">412+ DSA problems</strong>.
+              My curiosity centers on building practical, intelligent software: from <strong className="text-brand-700 dark:text-brand-300 font-semibold">AI scam detection</strong> to <strong className="text-brand-700 dark:text-brand-300 font-semibold">market momentum models</strong> and <strong className="text-brand-700 dark:text-brand-300 font-semibold">cybersecurity assistants</strong>. I balance practical builds with strong fundamentals, having solved <strong className="text-brand-600 dark:text-brand-400 font-extrabold">{totalDsa} DSA problems</strong>.
             </p>
 
             <div className="pt-3 border-t border-brand-200/80 dark:border-brand-900/60 grid grid-cols-2 gap-2.5 text-xs">

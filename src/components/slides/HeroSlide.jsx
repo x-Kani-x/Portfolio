@@ -2,14 +2,23 @@ import React, { useState, useEffect } from 'react';
 import { personalInfo } from '../../data/portfolioData';
 import { ArrowRight, Download, Mail, Github, Linkedin, Code2, Award, Sparkles, Terminal } from 'lucide-react';
 
-export default function HeroSlide({ onGoToSlide }) {
+export default function HeroSlide({ onGoToSlide, leetCodeStats }) {
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [displayedText, setDisplayedText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const dynamicTitles = [
+    personalInfo.typewriterTitles[0],
+    personalInfo.typewriterTitles[1],
+    personalInfo.typewriterTitles[2],
+    leetCodeStats?.totalSolved
+      ? `Competitive Problem Solver (${leetCodeStats.totalSolved}+ DSA)`
+      : personalInfo.typewriterTitles[3]
+  ];
+
   // Typewriter effect
   useEffect(() => {
-    const fullText = personalInfo.typewriterTitles[currentTextIndex];
+    const fullText = dynamicTitles[currentTextIndex] || personalInfo.typewriterTitles[0];
     const typingSpeed = isDeleting ? 30 : 65;
 
     const timer = setTimeout(() => {
@@ -22,13 +31,13 @@ export default function HeroSlide({ onGoToSlide }) {
         setDisplayedText(fullText.substring(0, displayedText.length - 1));
         if (displayedText.length === 0) {
           setIsDeleting(false);
-          setCurrentTextIndex((prev) => (prev + 1) % personalInfo.typewriterTitles.length);
+          setCurrentTextIndex((prev) => (prev + 1) % dynamicTitles.length);
         }
       }
     }, typingSpeed);
 
     return () => clearTimeout(timer);
-  }, [displayedText, isDeleting, currentTextIndex]);
+  }, [displayedText, isDeleting, currentTextIndex, dynamicTitles]);
 
   return (
     <div className="w-full h-full flex flex-col justify-center max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6">
@@ -130,13 +139,16 @@ export default function HeroSlide({ onGoToSlide }) {
               <span>LinkedIn</span>
             </a>
 
-            <button
-              onClick={() => onGoToSlide(6)}
+            <a
+              href={personalInfo.socials.leetcode}
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-xl bg-brand-100/90 dark:bg-brand-900/70 hover:bg-brand-200 dark:hover:bg-brand-800/80 text-brand-950 dark:text-brand-200 transition-all font-bold border border-brand-300/90 dark:border-brand-700/80 shadow-sm hover:-translate-y-0.5"
+              title="Visit public LeetCode profile (live solved count)"
             >
               <Code2 className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
-              <span>LeetCode 266+</span>
-            </button>
+              <span>LeetCode {leetCodeStats?.leetcodeSolved ?? 304}+</span>
+            </a>
 
             <button
               onClick={() => onGoToSlide(6)}
@@ -192,27 +204,33 @@ export default function HeroSlide({ onGoToSlide }) {
 
       {/* Bottom Metrics Bar */}
       <div className="mt-6 sm:mt-8 pt-5 sm:pt-6 border-t border-brand-200/70 dark:border-brand-800/60 grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-4">
-        {personalInfo.metrics.map((metric, idx) => (
-          <div 
-            key={idx} 
-            className="glass-card glass-card-hover p-3.5 sm:p-4 rounded-2xl border border-brand-200/70 dark:border-brand-800/60 text-left relative overflow-hidden group"
-          >
-            {/* Top decorative accent in primary brand color */}
-            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-700 via-brand-500 to-brand-400 opacity-80" />
+        {personalInfo.metrics.map((metric, idx) => {
+          const displayValue = idx === 1 && leetCodeStats?.totalSolved
+            ? `${leetCodeStats.totalSolved}+`
+            : metric.value;
 
-            <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-baseline space-x-1">
-              <span className="bg-gradient-to-r from-brand-700 via-brand-600 to-brand-500 dark:from-brand-300 dark:via-brand-400 dark:to-brand-200 bg-clip-text text-transparent">
-                {metric.value}
-              </span>
+          return (
+            <div 
+              key={idx} 
+              className="glass-card glass-card-hover p-3.5 sm:p-4 rounded-2xl border border-brand-200/70 dark:border-brand-800/60 text-left relative overflow-hidden group"
+            >
+              {/* Top decorative accent in primary brand color */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-700 via-brand-500 to-brand-400 opacity-80" />
+
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight flex items-baseline space-x-1">
+                <span className="bg-gradient-to-r from-brand-700 via-brand-600 to-brand-500 dark:from-brand-300 dark:via-brand-400 dark:to-brand-200 bg-clip-text text-transparent">
+                  {displayValue}
+                </span>
+              </div>
+              <div className="text-xs font-bold text-slate-800 dark:text-slate-100 mt-0.5">
+                {metric.label}
+              </div>
+              <div className="text-[11px] text-slate-500 dark:text-brand-300/70 truncate mt-0.5">
+                {metric.sub}
+              </div>
             </div>
-            <div className="text-xs font-bold text-slate-800 dark:text-slate-100 mt-0.5">
-              {metric.label}
-            </div>
-            <div className="text-[11px] text-slate-500 dark:text-brand-300/70 truncate mt-0.5">
-              {metric.sub}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
     </div>
